@@ -1,0 +1,2515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Portfolio of Noel D'Costa - Information Technology student, developer, AI/ML enthusiast and leader.">
+
+    <meta name="author" content="Noel D'Costa">
+
+    <title>Noel D'Costa | Developer Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+
+        /* =========================================================
+           ROOT VARIABLES
+        ========================================================= */
+
+        :root {
+            --accent-color: #00D9FF;
+            --accent-rgb: 0, 217, 255;
+
+            --bg-primary: #05070a;
+            --bg-secondary: #080d12;
+            --glass-bg: rgba(255, 255, 255, 0.055);
+            --glass-bg-hover: rgba(255, 255, 255, 0.085);
+
+            --border-color: rgba(255, 255, 255, 0.11);
+            --border-accent: rgba(0, 217, 255, 0.35);
+
+            --text-primary: #f4f7f9;
+            --text-secondary: #9aa7b2;
+            --text-muted: #64717c;
+
+            --shadow:
+                0 20px 60px rgba(0, 0, 0, 0.45);
+
+            --glow:
+                0 0 30px rgba(0, 217, 255, 0.22);
+
+            --radius: 22px;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+            cursor: none !important;
+        }
+
+        a,
+        button {
+            cursor: none !important;
+        }
+
+        ::selection {
+            background: var(--accent-color);
+            color: #001014;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(var(--accent-rgb), 0.45);
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -5;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(var(--accent-rgb), 0.09),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 30%,
+                    rgba(var(--accent-rgb), 0.06),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(var(--accent-rgb), 0.05),
+                    transparent 30%
+                );
+        }
+
+        .grid-background {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -4;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 60px 60px;
+
+            mask-image: linear-gradient(
+                to bottom,
+                black,
+                transparent 85%
+            );
+        }
+
+
+        /* =========================================================
+           CUSTOM CURSOR
+        ========================================================= */
+
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+
+            background: var(--accent-color);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+            z-index: 99999;
+
+            transform: translate(-50%, -50%);
+
+            box-shadow:
+                0 0 10px var(--accent-color),
+                0 0 25px rgba(var(--accent-rgb), 0.7);
+        }
+
+        .cursor-ring {
+            position: fixed;
+
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid rgba(var(--accent-rgb), 0.65);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+            z-index: 99998;
+
+            transform: translate(-50%, -50%);
+
+            transition:
+                width 0.25s ease,
+                height 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .cursor-ring.hover {
+            width: 62px;
+            height: 62px;
+
+            background: rgba(var(--accent-rgb), 0.08);
+
+            border-color: var(--accent-color);
+
+            box-shadow:
+                0 0 30px rgba(var(--accent-rgb), 0.18);
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: min(1100px, calc(100% - 32px));
+
+            padding: 13px 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(7, 11, 15, 0.68);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 18px;
+
+            z-index: 1000;
+
+            box-shadow: var(--shadow);
+        }
+
+        .nav-logo {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 20px;
+            font-weight: 700;
+
+            color: white;
+
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--accent-color);
+
+            text-shadow:
+                0 0 15px rgba(var(--accent-rgb), 0.7);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            position: relative;
+
+            color: var(--text-secondary);
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 500;
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: -6px;
+
+            width: 0;
+            height: 1px;
+
+            background: var(--accent-color);
+
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-social a {
+            width: 34px;
+            height: 34px;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+
+            color: var(--text-secondary);
+
+            transition: 0.25s ease;
+        }
+
+        .nav-social a:hover {
+            color: var(--accent-color);
+
+            border-color: var(--border-accent);
+
+            background: rgba(var(--accent-rgb), 0.08);
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        .container {
+            width: min(1100px, calc(100% - 32px));
+            margin: auto;
+        }
+
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-heading {
+            margin-bottom: 55px;
+        }
+
+        .section-number {
+            font-family: "Space Grotesk", sans-serif;
+
+            color: var(--accent-color);
+
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: clamp(35px, 5vw, 58px);
+
+            line-height: 1;
+
+            letter-spacing: -2px;
+        }
+
+        .section-heading p {
+            max-width: 600px;
+
+            margin-top: 18px;
+
+            color: var(--text-secondary);
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding-top: 120px;
+        }
+
+        .hero-grid {
+            display: grid;
+
+            grid-template-columns: 1.2fr 0.8fr;
+
+            align-items: center;
+
+            gap: 60px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 8px 13px;
+
+            border: 1px solid var(--border-accent);
+
+            border-radius: 100px;
+
+            background: rgba(var(--accent-rgb), 0.06);
+
+            color: var(--accent-color);
+
+            font-size: 12px;
+            font-weight: 600;
+
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            background: var(--accent-color);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px var(--accent-color);
+        }
+
+        .hero h1 {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: clamp(58px, 8vw, 100px);
+
+            line-height: 0.9;
+
+            letter-spacing: -5px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 .accent {
+            color: var(--accent-color);
+
+            text-shadow:
+                0 0 35px rgba(var(--accent-rgb), 0.25);
+        }
+
+        .hero-description {
+            max-width: 670px;
+
+            color: var(--text-secondary);
+
+            font-size: 17px;
+
+            line-height: 1.8;
+
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 13px 20px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+        .btn-primary {
+            color: #001014;
+
+            background: var(--accent-color);
+
+            box-shadow:
+                0 0 25px rgba(var(--accent-rgb), 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 0 40px rgba(var(--accent-rgb), 0.35);
+        }
+
+        .btn-secondary {
+            color: var(--text-primary);
+
+            border: 1px solid var(--border-color);
+
+            background: var(--glass-bg);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-accent);
+
+            background: var(--glass-bg-hover);
+
+            transform: translateY(-4px);
+        }
+
+
+        /* =========================================================
+           HERO PROFILE CARD
+        ========================================================= */
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-card {
+            width: min(360px, 100%);
+
+            padding: 25px;
+
+            position: relative;
+
+            border: 1px solid var(--border-color);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.08),
+                    rgba(255,255,255,0.025)
+                );
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border-radius: 28px;
+
+            box-shadow: var(--shadow);
+
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            top: -80px;
+            right: -70px;
+
+            background: var(--accent-color);
+
+            opacity: 0.13;
+
+            filter: blur(50px);
+
+            border-radius: 50%;
+        }
+
+        .profile-image-wrap {
+            position: relative;
+
+            width: 150px;
+            height: 150px;
+
+            margin: 10px auto 25px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 2px solid rgba(var(--accent-rgb), 0.55);
+
+            box-shadow:
+                0 0 35px rgba(var(--accent-rgb), 0.2);
+        }
+
+        .profile-ring {
+            position: absolute;
+
+            inset: -9px;
+
+            border: 1px dashed rgba(var(--accent-rgb), 0.5);
+
+            border-radius: 50%;
+
+            animation: spin 14s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-info h3 {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 25px;
+
+            margin-bottom: 7px;
+        }
+
+        .profile-info p {
+            color: var(--text-secondary);
+
+            font-size: 13px;
+        }
+
+        .github-stats {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            margin-top: 28px;
+
+            border-top: 1px solid var(--border-color);
+
+            padding-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat:not(:last-child) {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .stat strong {
+            display: block;
+
+            color: var(--accent-color);
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 20px;
+        }
+
+        .stat span {
+            color: var(--text-muted);
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-grid {
+            display: grid;
+
+            grid-template-columns: 0.8fr 1.2fr;
+
+            gap: 50px;
+
+            align-items: start;
+        }
+
+        .about-card {
+            padding: 32px;
+
+            border: 1px solid var(--border-color);
+
+            background: var(--glass-bg);
+
+            backdrop-filter: blur(15px);
+
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow);
+        }
+
+        .about-card h3 {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 25px;
+
+            margin-bottom: 20px;
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+
+            line-height: 1.85;
+
+            font-size: 15px;
+        }
+
+        .leadership-card {
+            padding: 25px;
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 18px;
+
+            background: rgba(255,255,255,0.035);
+
+            margin-top: 18px;
+        }
+
+        .leadership-card i {
+            color: var(--accent-color);
+
+            font-size: 20px;
+
+            margin-bottom: 15px;
+        }
+
+        .leadership-card h4 {
+            font-family: "Space Grotesk", sans-serif;
+
+            margin-bottom: 7px;
+        }
+
+        .leadership-card span {
+            color: var(--text-secondary);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           SKILLS
+        ========================================================= */
+
+        .skills-grid {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .skill {
+            padding: 11px 17px;
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 100px;
+
+            background: var(--glass-bg);
+
+            color: var(--text-secondary);
+
+            font-size: 13px;
+
+            transition: 0.3s ease;
+        }
+
+        .skill:hover {
+            color: var(--accent-color);
+
+            border-color: var(--border-accent);
+
+            background: rgba(var(--accent-rgb), 0.07);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .projects-header {
+            display: flex;
+
+            align-items: end;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .github-link {
+            color: var(--accent-color);
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+        .github-link i {
+            margin-left: 5px;
+        }
+
+        .projects-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 20px;
+        }
+
+        .project-card {
+            min-height: 280px;
+
+            padding: 25px;
+
+            position: relative;
+
+            border: 1px solid var(--border-color);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.065),
+                    rgba(255,255,255,0.02)
+                );
+
+            backdrop-filter: blur(15px);
+
+            border-radius: var(--radius);
+
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+
+            transform-style: preserve-3d;
+
+            overflow: hidden;
+        }
+
+        .project-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 140px;
+            height: 140px;
+
+            right: -70px;
+            bottom: -70px;
+
+            border-radius: 50%;
+
+            background: var(--accent-color);
+
+            opacity: 0.07;
+
+            filter: blur(25px);
+        }
+
+        .project-card:hover {
+            border-color: var(--border-accent);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.4),
+                0 0 25px rgba(var(--accent-rgb), 0.08);
+        }
+
+        .project-icon {
+            width: 45px;
+            height: 45px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 13px;
+
+            color: var(--accent-color);
+
+            background: rgba(var(--accent-rgb), 0.08);
+
+            border: 1px solid rgba(var(--accent-rgb), 0.16);
+
+            margin-bottom: 25px;
+        }
+
+        .project-card h3 {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 20px;
+
+            margin-bottom: 12px;
+
+            word-break: break-word;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            margin-bottom: 20px;
+        }
+
+        .project-meta {
+            display: flex;
+
+            gap: 14px;
+
+            flex-wrap: wrap;
+
+            color: var(--text-muted);
+
+            font-size: 11px;
+        }
+
+        .project-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .project-meta i {
+            color: var(--accent-color);
+        }
+
+        .project-open {
+            position: absolute;
+
+            top: 25px;
+            right: 25px;
+
+            color: var(--text-muted);
+
+            transition: 0.25s ease;
+        }
+
+        .project-card:hover .project-open {
+            color: var(--accent-color);
+
+            transform: translate(3px, -3px);
+        }
+
+        .loading {
+            grid-column: 1 / -1;
+
+            padding: 50px;
+
+            text-align: center;
+
+            color: var(--text-secondary);
+
+            border: 1px solid var(--border-color);
+
+            border-radius: var(--radius);
+
+            background: var(--glass-bg);
+        }
+
+        .loading i {
+            color: var(--accent-color);
+
+            font-size: 22px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact-box {
+            position: relative;
+
+            padding: 65px 40px;
+
+            text-align: center;
+
+            overflow: hidden;
+
+            border: 1px solid var(--border-accent);
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(var(--accent-rgb), 0.08),
+                    rgba(255,255,255,0.025)
+                );
+
+            box-shadow:
+                0 0 70px rgba(var(--accent-rgb), 0.06);
+        }
+
+        .contact-box::before {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            border-radius: 50%;
+
+            background: var(--accent-color);
+
+            opacity: 0.035;
+
+            filter: blur(50px);
+
+            pointer-events: none;
+        }
+
+        .contact-box h2 {
+            position: relative;
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: clamp(38px, 6vw, 65px);
+
+            letter-spacing: -3px;
+
+            margin-bottom: 18px;
+        }
+
+        .contact-box p {
+            position: relative;
+
+            max-width: 600px;
+
+            margin: auto auto 30px;
+
+            color: var(--text-secondary);
+
+            line-height: 1.8;
+        }
+
+        .contact-links {
+            position: relative;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding: 35px 0;
+
+            border-top: 1px solid var(--border-color);
+
+            color: var(--text-muted);
+
+            font-size: 12px;
+        }
+
+        .footer-inner {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+
+            gap: 15px;
+        }
+
+        .footer-social a {
+            color: var(--text-muted);
+
+            transition: 0.25s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-color);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            nav {
+                top: 10px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-social {
+                margin-left: auto;
+            }
+
+            section {
+                padding: 85px 0;
+            }
+
+            .hero {
+                padding-top: 110px;
+            }
+
+            .hero h1 {
+                font-size: clamp(52px, 17vw, 75px);
+
+                letter-spacing: -4px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .profile-card {
+                max-width: 330px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-header {
+                align-items: start;
+
+                flex-direction: column;
+            }
+
+            .contact-box {
+                padding: 45px 22px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+
+                text-align: center;
+            }
+
+        }
+
+
+        @media (pointer: coarse) {
+
+            body,
+            a,
+            button {
+                cursor: auto !important;
+            }
+
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- Background -->
+    <div class="grid-background"></div>
+
+
+    <!-- =========================================================
+         CUSTOM CURSOR
+    ========================================================== -->
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <nav>
+
+        <a href="#home" class="nav-logo">
+            N<span>.</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="#home">Home</a>
+
+            <a href="#about">About</a>
+
+            <a href="#projects">Projects</a>
+
+            <a href="#contact">Contact</a>
+
+        </div>
+
+        <div class="nav-social">
+
+            <a
+                href="https://github.com/Noel-Dcosta"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub">
+
+                <i class="fa-brands fa-github"></i>
+
+            </a>
+
+            <a
+                href="https://www.linkedin.com/in/noel-d-costa-a55424288/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn">
+
+                <i class="fa-brands fa-linkedin-in"></i>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="container">
+
+                <div class="hero-grid">
+
+                    <div class="hero-content">
+
+                        <div class="hero-badge hero-animate">
+
+                            <span class="status-dot"></span>
+
+                            Information Technology Student
+
+                        </div>
+
+
+                        <h1 class="hero-title">
+
+                            Hi, I'm
+                            <span class="accent">Noel.</span>
+
+                        </h1>
+
+
+                        <p class="hero-description hero-animate">
+
+                            I am a third-year Information Technology student
+                            interested in web development, AI/ML and software
+                            engineering. I enjoy building practical projects,
+                            exploring new technologies and working with teams
+                            to turn ideas into solutions.
+
+                        </p>
+
+
+                        <div class="hero-buttons hero-animate">
+
+                            <a href="#projects" class="btn btn-primary">
+
+                                View Projects
+
+                                <i class="fa-solid fa-arrow-down"></i>
+
+                            </a>
+
+
+                            <a
+                                href="https://www.linkedin.com/in/noel-d-costa-a55424288/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-secondary">
+
+                                <i class="fa-brands fa-linkedin"></i>
+
+                                LinkedIn
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Profile Card -->
+
+                    <div class="hero-visual">
+
+                        <div class="profile-card">
+
+                            <div class="profile-image-wrap">
+
+                                <div class="profile-ring"></div>
+
+                                <img
+                                    id="profileImage"
+                                    class="profile-image"
+                                    src="https://github.com/Noel-Dcosta.png"
+                                    alt="Noel D'Costa">
+
+                            </div>
+
+
+                            <div class="profile-info">
+
+                                <h3 id="profileName">
+                                    Noel D'Costa
+                                </h3>
+
+                                <p id="profileBio">
+                                    Developer • AI/ML Enthusiast • Leader
+                                </p>
+
+                            </div>
+
+
+                            <div class="github-stats">
+
+                                <div class="stat">
+
+                                    <strong id="repoCount">
+                                        --
+                                    </strong>
+
+                                    <span>Repos</span>
+
+                                </div>
+
+
+                                <div class="stat">
+
+                                    <strong id="followerCount">
+                                        --
+                                    </strong>
+
+                                    <span>Followers</span>
+
+                                </div>
+
+
+                                <div class="stat">
+
+                                    <strong id="followingCount">
+                                        --
+                                    </strong>
+
+                                    <span>Following</span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-number">
+                        01 / ABOUT
+                    </div>
+
+                    <h2>
+                        A little about me.
+                    </h2>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <div class="about-card reveal">
+
+                        <h3>
+                            Who I am
+                        </h3>
+
+                        <p>
+
+                            I am a third-year Information Technology student
+                            with an interest in web development, artificial
+                            intelligence, machine learning and software
+                            engineering.
+
+                            <br><br>
+
+                            I enjoy building practical projects that allow me
+                            to learn by doing. Along with technical skills,
+                            I value teamwork, communication and leadership.
+
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="about-card reveal">
+
+                            <h3>
+                                Leadership
+                            </h3>
+
+                            <p>
+
+                                Experienced leader and a team player. I have
+                                served as the General Secretary of the
+                                Information Technology Department at
+                                Goa College of Engineering.
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="leadership-card reveal">
+
+                            <i class="fa-solid fa-users"></i>
+
+                            <h4>
+                                General Secretary
+                            </h4>
+
+                            <span>
+                                Information Technology Department —
+                                Goa College of Engineering
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SKILLS
+        ====================================================== -->
+
+        <section>
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-number">
+                        02 / SKILLS
+                    </div>
+
+                    <h2>
+                        Technologies I explore.
+                    </h2>
+
+                    <p>
+                        A growing toolkit built through academic work,
+                        projects and hands-on experimentation.
+                    </p>
+
+                </div>
+
+
+                <div class="skills-grid reveal">
+
+                    <div class="skill">
+                        HTML
+                    </div>
+
+                    <div class="skill">
+                        CSS
+                    </div>
+
+                    <div class="skill">
+                        JavaScript
+                    </div>
+
+                    <div class="skill">
+                        Python
+                    </div>
+
+                    <div class="skill">
+                        C++
+                    </div>
+
+                    <div class="skill">
+                        PHP
+                    </div>
+
+                    <div class="skill">
+                        Node.js
+                    </div>
+
+                    <div class="skill">
+                        MySQL
+                    </div>
+
+                    <div class="skill">
+                        Firebase
+                    </div>
+
+                    <div class="skill">
+                        AI / ML
+                    </div>
+
+                    <div class="skill">
+                        Git & GitHub
+                    </div>
+
+                    <div class="skill">
+                        Responsive Design
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PROJECTS
+        ====================================================== -->
+
+        <section id="projects">
+
+            <div class="container">
+
+                <div class="projects-header">
+
+                    <div class="section-heading reveal">
+
+                        <div class="section-number">
+                            03 / PROJECTS
+                        </div>
+
+                        <h2>
+                            Things I've built.
+                        </h2>
+
+                        <p>
+                            Projects are loaded directly from my GitHub
+                            profile and automatically sorted by stars.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="https://github.com/Noel-Dcosta"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="github-link reveal">
+
+                        View GitHub
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </a>
+
+                </div>
+
+
+                <div
+                    class="projects-grid"
+                    id="projectsGrid">
+
+                    <div class="loading">
+
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+
+                        <p>
+                            Loading GitHub projects...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+        ====================================================== -->
+
+        <section id="contact">
+
+            <div class="container">
+
+                <div class="contact-box reveal">
+
+                    <h2>
+                        Let's connect.
+                    </h2>
+
+                    <p>
+
+                        Whether it's a project, collaboration, technology
+                        discussion or simply connecting with another developer,
+                        feel free to reach out.
+
+                    </p>
+
+
+                    <div class="contact-links">
+
+                        <a
+                            href="https://github.com/Noel-Dcosta"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-secondary">
+
+                            <i class="fa-brands fa-github"></i>
+
+                            GitHub
+
+                        </a>
+
+
+                        <a
+                            href="https://www.linkedin.com/in/noel-d-costa-a55424288/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-primary">
+
+                            <i class="fa-brands fa-linkedin-in"></i>
+
+                            Connect on LinkedIn
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-inner">
+
+                <div>
+                    © <span id="year"></span> Noel D'Costa.
+                    Built with HTML, CSS & JavaScript.
+                </div>
+
+
+                <div class="footer-social">
+
+                    <a
+                        href="https://github.com/Noel-Dcosta"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-github"></i>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.linkedin.com/in/noel-d-costa-a55424288/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-linkedin"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* =====================================================
+           CONFIGURATION
+        ====================================================== */
+
+        const GITHUB_USERNAME = "Noel-Dcosta";
+
+        const GITHUB_API =
+            `https://api.github.com/users/${GITHUB_USERNAME}`;
+
+        const REPOS_API =
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
+
+
+        /* =====================================================
+           FOOTER YEAR
+        ====================================================== */
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        /* =====================================================
+           CUSTOM CURSOR
+        ====================================================== */
+
+        const cursorDot =
+            document.querySelector(".cursor-dot");
+
+        const cursorRing =
+            document.querySelector(".cursor-ring");
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        let ringX = 0;
+        let ringY = 0;
+
+
+        window.addEventListener("mousemove", (event) => {
+
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+
+        });
+
+
+        function animateCursor() {
+
+            ringX += (mouseX - ringX) * 0.16;
+            ringY += (mouseY - ringY) * 0.16;
+
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+
+            requestAnimationFrame(animateCursor);
+
+        }
+
+        animateCursor();
+
+
+        function activateCursorHover() {
+
+            document
+                .querySelectorAll("a, button, .project-card, .skill")
+                .forEach((element) => {
+
+                    element.addEventListener("mouseenter", () => {
+
+                        cursorRing.classList.add("hover");
+
+                    });
+
+
+                    element.addEventListener("mouseleave", () => {
+
+                        cursorRing.classList.remove("hover");
+
+                    });
+
+                });
+
+        }
+
+        activateCursorHover();
+
+
+        /* =====================================================
+           GSAP HERO ANIMATION
+        ====================================================== */
+
+        gsap.set(".hero-title", {
+            opacity: 0,
+            y: 40
+        });
+
+        gsap.set(".hero-animate", {
+            opacity: 0,
+            y: 25
+        });
+
+        gsap.set(".profile-card", {
+            opacity: 0,
+            scale: 0.9,
+            y: 30
+        });
+
+
+        const heroTimeline = gsap.timeline({
+            defaults: {
+                ease: "power3.out"
+            }
+        });
+
+
+        heroTimeline
+            .to(".hero-title", {
+                opacity: 1,
+                y: 0,
+                duration: 1
+            })
+
+            .to(".hero-animate", {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                stagger: 0.12
+            }, "-=0.55")
+
+            .to(".profile-card", {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 1
+            }, "-=0.6");
+
+
+        /* =====================================================
+           SCROLL REVEAL
+        ====================================================== */
+
+        const observer =
+            new IntersectionObserver(
+                (entries) => {
+
+                    entries.forEach((entry) => {
+
+                        if (
+                            entry.isIntersecting &&
+                            !entry.target.classList.contains("revealed")
+                        ) {
+
+                            entry.target.classList.add("revealed");
+
+                            gsap.fromTo(
+                                entry.target,
+                                {
+                                    opacity: 0,
+                                    y: 35
+                                },
+                                {
+                                    opacity: 1,
+                                    y: 0,
+                                    duration: 0.8,
+                                    ease: "power3.out"
+                                }
+                            );
+
+                            observer.unobserve(entry.target);
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        document
+            .querySelectorAll(".reveal")
+            .forEach((element) => {
+
+                observer.observe(element);
+
+            });
+
+
+        /* =====================================================
+           GITHUB PROFILE FETCH
+        ====================================================== */
+
+        async function fetchGitHubProfile() {
+
+            try {
+
+                const response =
+                    await fetch(GITHUB_API);
+
+                if (!response.ok) {
+                    throw new Error("GitHub profile request failed");
+                }
+
+                const data =
+                    await response.json();
+
+
+                /* Profile image */
+
+                const profileImage =
+                    document.getElementById("profileImage");
+
+                profileImage.src =
+                    data.avatar_url;
+
+
+                /* Name */
+
+                const profileName =
+                    document.getElementById("profileName");
+
+                if (data.name) {
+
+                    profileName.textContent =
+                        data.name;
+
+                }
+
+
+                /* Bio */
+
+                const profileBio =
+                    document.getElementById("profileBio");
+
+                if (data.bio) {
+
+                    profileBio.textContent =
+                        data.bio;
+
+                }
+
+
+                /* Followers */
+
+                document.getElementById("followerCount")
+                    .textContent =
+                    formatNumber(data.followers);
+
+
+                /* Following */
+
+                document.getElementById("followingCount")
+                    .textContent =
+                    formatNumber(data.following);
+
+
+                /* Repository count */
+
+                document.getElementById("repoCount")
+                    .textContent =
+                    formatNumber(data.public_repos);
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "GitHub profile error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           GITHUB REPOSITORIES
+        ====================================================== */
+
+        async function fetchGitHubRepositories() {
+
+            const projectsGrid =
+                document.getElementById("projectsGrid");
+
+
+            try {
+
+                const response =
+                    await fetch(REPOS_API);
+
+
+                if (!response.ok) {
+                    throw new Error(
+                        "GitHub repository request failed"
+                    );
+                }
+
+
+                const repositories =
+                    await response.json();
+
+
+                /* Sort repositories by stars */
+
+                repositories.sort(
+                    (a, b) =>
+                        b.stargazers_count -
+                        a.stargazers_count
+                );
+
+
+                /* Remove forks */
+
+                const originalRepos =
+                    repositories.filter(
+                        repo => !repo.fork
+                    );
+
+
+                /* Show top six */
+
+                const topRepositories =
+                    originalRepos.slice(0, 6);
+
+
+                if (topRepositories.length === 0) {
+
+                    projectsGrid.innerHTML = `
+
+                        <div class="loading">
+
+                            <i class="fa-brands fa-github"></i>
+
+                            <p>
+                                No public projects available yet.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                projectsGrid.innerHTML = "";
+
+
+                topRepositories.forEach(
+                    (repo, index) => {
+
+                        const card =
+                            createProjectCard(
+                                repo,
+                                index
+                            );
+
+                        projectsGrid.appendChild(card);
+
+                    }
+                );
+
+
+                /* Project scroll animation */
+
+                gsap.fromTo(
+                    ".project-card",
+                    {
+                        opacity: 0,
+                        y: 50
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.7,
+                        stagger: 0.12,
+                        ease: "power3.out",
+                        scrollTrigger: undefined
+                    }
+                );
+
+
+                activateCursorHover();
+
+                activateTilt();
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "GitHub repositories error:",
+                    error
+                );
+
+
+                projectsGrid.innerHTML = `
+
+                    <div class="loading">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        <p>
+                            Unable to load GitHub projects right now.
+                        </p>
+
+                        <br>
+
+                        <a
+                            href="https://github.com/Noel-Dcosta"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="github-link">
+
+                            View projects directly on GitHub
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CREATE PROJECT CARD
+        ====================================================== */
+
+        function createProjectCard(repo, index) {
+
+            const card =
+                document.createElement("article");
+
+
+            card.className =
+                "project-card";
+
+
+            const description =
+                repo.description ||
+                "A project built while exploring software development and technology.";
+
+
+            const language =
+                repo.language ||
+                "Code";
+
+
+            card.innerHTML = `
+
+                <a
+                    href="${repo.html_url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-open"
+                    aria-label="Open repository">
+
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                </a>
+
+
+                <div class="project-icon">
+
+                    <i class="fa-solid fa-code"></i>
+
+                </div>
+
+
+                <h3>
+                    ${escapeHTML(repo.name)}
+                </h3>
+
+
+                <p>
+                    ${escapeHTML(description)}
+                </p>
+
+
+                <div class="project-meta">
+
+                    <span>
+
+                        <i class="fa-solid fa-code"></i>
+
+                        ${escapeHTML(language)}
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fa-solid fa-star"></i>
+
+                        ${formatNumber(repo.stargazers_count)}
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fa-solid fa-code-fork"></i>
+
+                        ${formatNumber(repo.forks_count)}
+
+                    </span>
+
+                </div>
+
+            `;
+
+
+            return card;
+
+        }
+
+
+        /* =====================================================
+           NUMBER FORMAT
+        ====================================================== */
+
+        function formatNumber(number) {
+
+            if (number === undefined || number === null) {
+                return "--";
+            }
+
+            if (number >= 1000) {
+
+                return (
+                    number / 1000
+                ).toFixed(1) + "k";
+
+            }
+
+            return number;
+
+        }
+
+
+        /* =====================================================
+           HTML ESCAPE
+        ====================================================== */
+
+        function escapeHTML(value) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                value;
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =====================================================
+           3D PROJECT CARD TILT
+        ====================================================== */
+
+        function activateTilt() {
+
+            const cards =
+                document.querySelectorAll(
+                    ".project-card"
+                );
+
+
+            cards.forEach((card) => {
+
+                card.addEventListener(
+                    "mousemove",
+                    (event) => {
+
+                        const rect =
+                            card.getBoundingClientRect();
+
+
+                        const x =
+                            event.clientX -
+                            rect.left;
+
+
+                        const y =
+                            event.clientY -
+                            rect.top;
+
+
+                        const centerX =
+                            rect.width / 2;
+
+
+                        const centerY =
+                            rect.height / 2;
+
+
+                        const rotateX =
+                            ((y - centerY) /
+                                centerY) *
+                            -5;
+
+
+                        const rotateY =
+                            ((x - centerX) /
+                                centerX) *
+                            5;
+
+
+                        card.style.transform = `
+                            perspective(900px)
+                            rotateX(${rotateX}deg)
+                            rotateY(${rotateY}deg)
+                            translateY(-5px)
+                        `;
+
+                    }
+                );
+
+
+                card.addEventListener(
+                    "mouseleave",
+                    () => {
+
+                        card.style.transform =
+                            "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
+
+                    }
+                );
+
+            });
+
+        }
+
+
+        /* =====================================================
+           SMOOTH ANCHOR SCROLLING
+        ====================================================== */
+
+        document
+            .querySelectorAll('a[href^="#"]')
+            .forEach((link) => {
+
+                link.addEventListener(
+                    "click",
+                    (event) => {
+
+                        const target =
+                            document.querySelector(
+                                link.getAttribute("href")
+                            );
+
+
+                        if (!target) return;
+
+
+                        event.preventDefault();
+
+
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }
+                );
+
+            });
+
+
+        /* =====================================================
+           START GITHUB API
+        ====================================================== */
+
+        fetchGitHubProfile();
+
+        fetchGitHubRepositories();
+
+    </script>
+
+</body>
+</html>
